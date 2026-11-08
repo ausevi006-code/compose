@@ -1,0 +1,80 @@
+{
+  "info": {
+    "name": "TaskApi — Docker Compose CRUD",
+    "description": "CRUD-запросы к API задач. Запускать по порядку: Create сохраняет id в переменную taskId.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "taskId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "1. Create — POST /tasks",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('201 Created', () => pm.response.to.have.status(201));",
+              "pm.collectionVariables.set('taskId', pm.response.json().id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Сдать контрольную точку Compose\",\n  \"description\": \"API + PostgreSQL в Docker Compose\",\n  \"isDone\": false\n}"
+        },
+        "url": "{{baseUrl}}/tasks"
+      }
+    },
+    {
+      "name": "2. Read all — GET /tasks",
+      "event": [
+        { "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('200 OK', () => pm.response.to.have.status(200));"] } }
+      ],
+      "request": { "method": "GET", "url": "{{baseUrl}}/tasks" }
+    },
+    {
+      "name": "3. Read one — GET /tasks/{id}",
+      "event": [
+        { "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('200 OK', () => pm.response.to.have.status(200));"] } }
+      ],
+      "request": { "method": "GET", "url": "{{baseUrl}}/tasks/{{taskId}}" }
+    },
+    {
+      "name": "4. Update — PUT /tasks/{id}",
+      "event": [
+        { "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('200 OK', () => pm.response.to.have.status(200));", "pm.test('isDone = true', () => pm.expect(pm.response.json().isDone).to.eql(true));"] } }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Сдать контрольную точку Compose\",\n  \"description\": \"Проверено: CRUD работает\",\n  \"isDone\": true\n}"
+        },
+        "url": "{{baseUrl}}/tasks/{{taskId}}"
+      }
+    },
+    {
+      "name": "5. Delete — DELETE /tasks/{id}",
+      "event": [
+        { "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('204 No Content', () => pm.response.to.have.status(204));"] } }
+      ],
+      "request": { "method": "DELETE", "url": "{{baseUrl}}/tasks/{{taskId}}" }
+    },
+    {
+      "name": "6. Проверка удаления — GET /tasks/{id} (404)",
+      "event": [
+        { "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('404 Not Found', () => pm.response.to.have.status(404));"] } }
+      ],
+      "request": { "method": "GET", "url": "{{baseUrl}}/tasks/{{taskId}}" }
+    }
+  ]
+}
