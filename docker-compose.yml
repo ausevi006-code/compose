@@ -1,0 +1,39 @@
+services:
+  api:
+    build: .
+    container_name: task-api
+    ports:
+      - "8080:8080"            # порт_хоста:порт_контейнера
+    environment:
+      # Host=db — обращение к базе по имени сервиса, а не localhost
+      - CONNECTION_STRING=Host=db;Port=5432;Database=app;Username=postgres;Password=123
+    depends_on:
+      db:
+        condition: service_healthy   # ждём, пока PostgreSQL реально готов
+    restart: on-failure
+    networks:
+      - app-network
+
+  db:
+    image: postgres:16
+    container_name: task-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=app
+    volumes:
+      - db_data:/var/lib/postgresql/data   # куда подключить хранилище внутри контейнера
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d app"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  db_data:     # named volume, который создаёт Docker Compose
