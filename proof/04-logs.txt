@@ -1,0 +1,55 @@
+task-db  | 
+task-db   | PostgreSQL Database directory appears to contain a database; Skipping initialization
+task-db   | 
+task-db   | 2026-11-08 18:21:57.600 UTC [1] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+task-db   | 2026-11-08 18:21:57.600 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+task-db   | 2026-11-08 18:21:57.600 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+task-db   | 2026-11-08 18:21:57.603 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+task-db   | 2026-11-08 18:21:57.609 UTC [27] LOG:  database system was shut down at 2026-11-08 18:21:56 UTC
+task-db   | 2026-11-08 18:21:57.614 UTC [1] LOG:  database system is ready to accept connections
+task-api  | info: TaskApi[0]
+task-api  |       Подключение к PostgreSQL установлено, таблица tasks готова
+task-api  | info: Microsoft.Hosting.Lifetime[14]
+task-api  |       Now listening on: http://[::]:8080
+task-api  | info: Microsoft.Hosting.Lifetime[0]
+task-api  |       Application started. Press Ctrl+C to shut down.
+task-api  | info: Microsoft.Hosting.Lifetime[0]
+task-api  |       Hosting environment: Production
+task-api  | info: Microsoft.Hosting.Lifetime[0]
+task-api  |       Content root path: /app
+task-api  | info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+task-api  |       Request starting HTTP/1.1 GET http://localhost:8080/ - - -
+task-api  | info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+task-api  |       Executing endpoint 'HTTP: GET /'
+task-api  | info: Microsoft.AspNetCore.Http.Result.OkObjectResult[1]
+task-api  |       Setting HTTP status code 200.
+task-api  | info: Microsoft.AspNetCore.Http.Result.OkObjectResult[3]
+task-api  |       Writing value of type '<>f__AnonymousType0`2' as Json.
+task-api  | info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+task-api  |       Executed endpoint 'HTTP: GET /'
+task-api  | info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+task-api  |       Request finished HTTP/1.1 GET http://localhost:8080/ - 200 - application/json;+charset=utf-8 89.4453ms
+task-api  | info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+task-api  |       Request starting HTTP/1.1 GET http://localhost:8080/tasks/1 - - -
+task-api  | info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+task-api  |       Executing endpoint 'HTTP: GET /tasks/{id:int}'
+task-api  | info: Microsoft.AspNetCore.Http.Result.OkObjectResult[1]
+task-api  |       Setting HTTP status code 200.
+task-api  | info: Microsoft.AspNetCore.Http.Result.OkObjectResult[3]
+task-api  |       Writing value of type 'TaskItem' as Json.
+task-api  | info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+task-api  |       Executed endpoint 'HTTP: GET /tasks/{id:int}'
+task-api  | info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+task-api  |       Request finished HTTP/1.1 GET http://localhost:8080/tasks/1 - 200 - application/json;+charset=utf-8 62.4849ms
+task-api  | info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+task-api  |       Request starting HTTP/1.1 GET http://localhost:8080/tasks - - -
+task-api  | info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+task-api  |       Executing endpoint 'HTTP: GET /tasks/'
+task-api  | info: Microsoft.AspNetCore.Http.Result.OkObjectResult[1]
+task-api  |       Setting HTTP status code 200.
+task-api  | info: Microsoft.AspNetCore.Http.Result.OkObjectResult[3]
+task-api  |       Writing value of type 'List`1' as Json.
+task-api  | info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+task-api  |       Executed endpoint 'HTTP: GET /tasks/'
+task-api  | info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+task-api  |       Request finished HTTP/1.1 GET http://localhost:8080/tasks - 200 - application/json;+charset=utf-8 7.5010ms

@@ -1,0 +1,5 @@
+
+===== docker compose ps =====
+NAME       IMAGE         COMMAND                  SERVICE   CREATED          STATUS                   PORTS
+task-api   compose-api   "dotnet TaskApi.dll"     api       7 seconds ago    Up 2 seconds             0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
+task-db    postgres:16   "docker-entrypoint.s…"   db        10 seconds ago   Up 6 seconds (healthy)   5432/tcp

@@ -1,0 +1,45 @@
+
+===== CREATE — POST /tasks =====
+$ curl -X POST http://localhost:8080/tasks -H 'Content-Type: application/json' -d '{"title":"Сдать контрольную точку Compose","description":"API + PostgreSQL в Docker Compose","isDone":false}'
+{"id":1,"title":"Сдать контрольную точку Compose","description":"API + PostgreSQL в Docker Compose","isDone":false,"createdAt":"2026-11-08T18:21:56.382132"}
+Создана задача с id=1
+
+$ curl -X POST http://localhost:8080/tasks -H 'Content-Type: application/json' -d '{"title":"Временная задача","description":"будет удалена"}'
+{"id":2,"title":"Временная задача","description":"будет удалена","isDone":false,"createdAt":"2026-11-08T18:21:56.433206"}
+
+
+===== READ — GET /tasks =====
+$ curl -X GET http://localhost:8080/tasks
+[{"id":1,"title":"Сдать контрольную точку Compose","description":"API + PostgreSQL в Docker Compose","isDone":false,"createdAt":"2026-11-08T18:21:56.382132"},{"id":2,"title":"Временная задача","description":"будет удалена","isDone":false,"createdAt":"2026-11-08T18:21:56.433206"}]
+HTTP 200
+
+
+===== READ — GET /tasks/1 =====
+$ curl -X GET http://localhost:8080/tasks/1
+{"id":1,"title":"Сдать контрольную точку Compose","description":"API + PostgreSQL в Docker Compose","isDone":false,"createdAt":"2026-11-08T18:21:56.382132"}
+HTTP 200
+
+
+===== UPDATE — PUT /tasks/1 =====
+$ curl -X PUT http://localhost:8080/tasks/1 -H 'Content-Type: application/json' -d '{"title":"Сдать контрольную точку Compose","description":"Проверено: CRUD работает","isDone":true}'
+{"id":1,"title":"Сдать контрольную точку Compose","description":"Проверено: CRUD работает","isDone":true,"createdAt":"2026-11-08T18:21:56.382132"}
+HTTP 200
+
+
+===== DELETE — удаляем временную задачу =====
+$ curl -X DELETE http://localhost:8080/tasks/2
+
+HTTP 204
+
+
+===== Проверка удаления — GET /tasks/2 (ожидается 404) =====
+$ curl -X GET http://localhost:8080/tasks/2
+{"error":"Задача 2 не найдена"}
+HTTP 404
+
+
+===== Проверка валидации — POST без title (ожидается 400) =====
+$ curl -X POST http://localhost:8080/tasks -H 'Content-Type: application/json' -d '{"description":"без названия"}'
+{"error":"Поле title обязательно"}
+HTTP 400
+

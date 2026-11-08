@@ -1,0 +1,54 @@
+
+===== Данные ДО перезапуска — GET /tasks/1 =====
+$ curl -X GET http://localhost:8080/tasks/1
+{"id":1,"title":"Сдать контрольную точку Compose","description":"Проверено: CRUD работает","isDone":true,"createdAt":"2026-11-08T18:21:56.382132"}
+HTTP 200
+
+
+===== docker compose down (контейнеры удаляются, volume db_data остаётся) =====
+ Container task-api Stopping 
+ Container task-api Stopped 
+ Container task-api Removing 
+ Container task-api Removed 
+ Container task-db Stopping 
+ Container task-db Stopped 
+ Container task-db Removing 
+ Container task-db Removed 
+ Network compose_app-network Removing 
+ Network compose_app-network Removed 
+
+===== docker volume ls — volume db_data на месте =====
+local     compose_db_data
+
+===== docker compose up -d =====
+ Network compose_app-network Creating 
+ Network compose_app-network Creating 
+ Network compose_app-network Created 
+ Network compose_app-network Created 
+ Container task-db Creating 
+ Container task-db Created 
+ Container task-api Creating 
+ Container task-api Created 
+ Container task-db Starting 
+ Container task-db Started 
+ Container task-db Waiting 
+ Container task-db Healthy 
+ Container task-api Starting 
+ Container task-api Started 
+
+===== docker compose ps после перезапуска =====
+NAME       IMAGE         COMMAND                  SERVICE   CREATED         STATUS                   PORTS
+task-api   compose-api   "dotnet TaskApi.dll"     api       6 seconds ago   Up 2 seconds             0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
+task-db    postgres:16   "docker-entrypoint.s…"   db        6 seconds ago   Up 6 seconds (healthy)   5432/tcp
+
+===== Данные ПОСЛЕ перезапуска — GET /tasks/1 =====
+$ curl -X GET http://localhost:8080/tasks/1
+{"id":1,"title":"Сдать контрольную точку Compose","description":"Проверено: CRUD работает","isDone":true,"createdAt":"2026-11-08T18:21:56.382132"}
+HTTP 200
+
+
+===== Все задачи после перезапуска — GET /tasks =====
+$ curl -X GET http://localhost:8080/tasks
+[{"id":1,"title":"Сдать контрольную точку Compose","description":"Проверено: CRUD работает","isDone":true,"createdAt":"2026-11-08T18:21:56.382132"}]
+HTTP 200
+
