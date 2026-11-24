@@ -133,7 +133,7 @@ powershell -ExecutionPolicy Bypass -File scripts\check.ps1     # Windows
 | `proof/03-persistence.txt` | данные сохранились после `down` → `up` |
 | `proof/04-logs.txt` | `docker compose logs`: API подключился к базе |
 
-## Как это устроено (для защиты)
+## Как это устроено
 
 **Сервисы в docker-compose.yml.** Их два: `api` собирается из `Dockerfile` в текущей папке (`build: .`), `db` берётся из готового образа `postgres:16`. API и база — разные сервисы, как требует задание.
 
